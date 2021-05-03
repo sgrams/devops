@@ -4,7 +4,6 @@ import axios from 'axios';
 const DeleteMeasurement = (props) => {
     const [itemID, setItemID] = useState("");
     const handleSubmit = (event) =>{
-        console.log(`Data sent ${title} ${body}`);
         axios.delete(`http://localhost:9090/api/measurement/${itemID}`)
         .then(response => console.log(response))
         .itemch(error => console.log(error));

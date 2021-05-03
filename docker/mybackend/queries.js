@@ -70,7 +70,7 @@ const getMeasurementById = (request, response) => {
     } else {
       pgClient.query('SELECT * FROM measurements WHERE id = $1', [id], (error, results) => {
         if (error) throw error;
-        response.status(200).json(results.rows)
+        response.status(200).json(results.rows[0])
         console.log("got from psql!");
       })
     }

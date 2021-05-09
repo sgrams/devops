@@ -37,12 +37,14 @@ services:
       - REDIS_HOST=myredis
     ports:
       - "5000:4000"
+    image: sgrams/mybackend
   myfrontend:
-      build:
-        dockerfile: Dockerfile.dev
-        context: ./myfrontend
-      depends_on: 
-        - 'mynginx'
-      volumes:
-        - /opt/app/node_modules
-        - ./myfrontend:/opt/app
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./myfrontend
+    depends_on: 
+      - 'mynginx'
+    volumes:
+      - /opt/app/node_modules
+      - ./myfrontend:/opt/app
+    image: sgrams/myfrontend

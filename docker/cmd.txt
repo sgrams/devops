@@ -9,6 +9,5 @@ docker run --rm --name myalpine3 --network mymulticont -d alpine sleep 30000
 yarn init -y
 yarn add express redis pg body-parser cors nodemon
 
-
 docker run --name=myredis --network=mymulticont --rm redis:alpine
 docker run --rm --network mymulticont sgrams/mybackend

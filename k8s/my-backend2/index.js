@@ -4,7 +4,7 @@ const app = express();
 const appId = uuidv4();
 const appPort = 5000;
 
-app.get('/api', (req, res) => {
+app.get('/hello', (req, res) => {
   res.send(`[${appId}] Hello from mybackend server`)
 });
 

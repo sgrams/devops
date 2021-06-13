@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-backend-lb-deploy
+  labels:
+    component: backend
+    app: my-app
+
+spec:
+  template:
+    metadata:
+      name: my-backend-lb-pod
+      labels:
+        component: backend
+        app: my-app
+    spec:
+      containers:
+        - name: my-backend2
+          image: sgrams/mybackend2
+          ports:
+            - containerPort: 5000
+
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-app
+      component: backend

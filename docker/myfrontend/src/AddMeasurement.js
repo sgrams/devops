@@ -8,7 +8,8 @@ const AddMeasurement= (props) => {
 
     const handleSubmit = (event) =>{
         console.log(`Data sent ${title} ${body}`);
-        axios.post('http://localhost:9090/api/measurement',{
+        //axios.post('http://localhost:9090/api/measurement',{
+        axios.post('/api/measurement',{
             timestamp: title,
             measurement: body,
         })

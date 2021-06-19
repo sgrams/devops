@@ -4,7 +4,8 @@ import axios from 'axios';
 const DeleteMeasurement = (props) => {
     const [itemID, setItemID] = useState("");
     const handleSubmit = (event) =>{
-        axios.delete(`http://localhost:9090/api/measurement/${itemID}`)
+        //axios.delete(`http://localhost:9090/api/measurement/${itemID}`)
+        axios.delete(`/api/measurement/${itemID}`)
         .then(response => console.log(response))
         .catch(error => console.log(error));
         event.preventDefault();

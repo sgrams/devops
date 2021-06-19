@@ -1,28 +1,44 @@
 // Creating PostgreSQL connection
 const { Pool } = require('pg');
+
+//const pgClient = new Pool({
+//    user: "postgres",
+//    password: "1qaz2wsx",
+//    database: "postgres",
+//    host: "mypostgres",
+//    port: "5432"
+//});
+
 const pgClient = new Pool({
-    user: "postgres",
-    password: "1qaz2wsx",
-    database: "postgres",
-    host: "mypostgres",
-    port: "5432"
+  user: process.env.POSTGRES_USER,
+  password: process.env.POSTGRES_PASSWORD,
+  database: process.env.POSTGRES_DB,
+  host: process.env.POSTGRES_HOST,
+  port: "5432"
 });
+
 pgClient.on('error', () => {
     console.log("PostgreSQL not connected");
 });
 
 // Creating and testing redis connection
 const redis = require('redis');
+
+//const redisClient = redis.createClient({
+//    host: "myredis",
+//    port: 6379
+//});
+
 const redisClient = redis.createClient({
-    host: "myredis",
+    host: process.env.REDIS_HOST,
     port: 6379
 });
+
 redisClient.on('connect', () => {
     console.log('Connected to Redis server');
 });
 
-// Database access methods
-function checkOrInstantiateTable(){
+function connectToDatabase(){
     pgClient.query(`CREATE TABLE IF NOT EXISTS measurements (
             ID SERIAL PRIMARY KEY NOT NULL,
             timestamp TEXT NOT NULL,
@@ -106,7 +122,7 @@ const deleteMeasurementById = (request, response) => {
 
 // Export API
 module.exports = {
-  checkOrInstantiateTable,
+  connectToDatabase,
   createMeasurement,
   getMeasurements,
   getMeasurementById,

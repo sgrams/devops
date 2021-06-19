@@ -11,8 +11,9 @@ const UpdateMeasurement = (props) => {
     // TODO: Add call to get item of specified id to populate the initial data
     // Both parameters have to be passed (name and age)
     const handleSubmit = (event) =>{
-         console.log(`Data sent ${title} ${body}`);
-        axios.put(`http://localhost:9090/api/measurement/${itemID}`,{
+        console.log(`Data sent ${title} ${body}`);
+        //axios.put(`http://localhost:9090/api/measurement/${itemID}`,{
+        axios.put(`/api/measurement/${itemID}`,{
             timestamp: title,
             measurement: body,
         })

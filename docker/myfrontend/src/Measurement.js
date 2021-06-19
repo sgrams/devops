@@ -5,7 +5,8 @@ const Measurement = (props) => {
     const [measurements, setMeasurements] = useState([]);
     const[number, setNumber] = useState(-1);
     useEffect(() =>{
-        axios.get('http://localhost:9090/api/measurement')
+        //axios.get('http://localhost:9090/api/measurement')
+        axios.get('/api/measurement')
         .then(response => setMeasurements(response.data))
         .catch(error => console.log(error));
     }, []);

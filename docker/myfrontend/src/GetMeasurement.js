@@ -8,7 +8,8 @@ const GetMeasurement = (props) => {
 
     const handleSubmit = (event) =>{
         console.log(itemID);
-        axios.get(`http://localhost:9090/api/measurement/${itemID}`)
+        //axios.get(`http://localhost:9090/api/measurement/${itemID}`)
+        axios.get(`/api/measurement/${itemID}`)
         .then(response => setItem(response.data))
         .catch(error => console.log(error));
         event.preventDefault();

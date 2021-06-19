@@ -7,8 +7,7 @@ const queries = require('./queries')
 app.use(cors());
 app.use(express.json());
 
-// Creating connection to postgresql and creating table if it doesn't exists
-queries.checkOrInstantiateTable();
+queries.connectToDatabase();
 
 app.get('/',(req, res) => {
     res.send("Weather App 0.1")
@@ -25,7 +24,7 @@ app.post('/measurement', queries.createMeasurement);
 app.put('/measurement/:id', queries.updateMeasurementById);
 app.delete('/measurement/:id', queries.deleteMeasurementById);
 
-const PORT = 4000;
+const PORT = 5000;
 
 app.listen(PORT, () => {
     console.log(`API is listening of port ${PORT}`);

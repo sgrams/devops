@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mybackend-deploy
+  labels:
+    component: backend
+    app: my-app
+
+spec:
+  template:
+    metadata:
+      name: mybackend-pod
+      labels:
+        component: backend
+        app: my-app
+    spec:
+      containers:
+        - name: mybackend
+          image: sgrams/mybackend
+          env:
+            - name: REDIS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: myredis-configmap
+                  key: REDIS_HOST
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mypostgres-secret
+                  key: PGPASSWORD
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: mypostgres-configmap
+                  key: PGDATABASE
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: mypostgres-configmap
+                  key: PGUSER
+            - name: POSTGRES_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: mypostgres-configmap
+                  key: PGHOST
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-app
+      component: backend

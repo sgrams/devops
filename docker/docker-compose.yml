@@ -17,7 +17,7 @@ services:
       dockerfile: Dockerfile
       context: ./mynginx
     ports:
-      - '9090:80'
+      - '80:80'
   mybackend:
     build:
       dockerfile: Dockerfile
@@ -36,7 +36,7 @@ services:
       - POSTGRES_USER=postgres
       - REDIS_HOST=myredis
     ports:
-      - "5000:4000"
+      - "5000:5000"
     image: sgrams/mybackend
   myfrontend:
     build:

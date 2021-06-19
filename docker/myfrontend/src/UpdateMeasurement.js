@@ -17,7 +17,7 @@ const UpdateMeasurement = (props) => {
             measurement: body,
         })
         .then(response => console.log(response))
-        .itemch(error => console.log(error));
+        .catch(error => console.log(error));
         event.preventDefault();
     };
 

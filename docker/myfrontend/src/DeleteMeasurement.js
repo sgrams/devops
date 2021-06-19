@@ -6,7 +6,7 @@ const DeleteMeasurement = (props) => {
     const handleSubmit = (event) =>{
         axios.delete(`http://localhost:9090/api/measurement/${itemID}`)
         .then(response => console.log(response))
-        .itemch(error => console.log(error));
+        .catch(error => console.log(error));
         event.preventDefault();
     };
 

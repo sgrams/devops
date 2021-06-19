@@ -4,12 +4,13 @@ import axios from 'axios';
 const GetMeasurement = (props) => {
 
     const [itemID, setItemID] = useState("");
-    const [item, setItem] = useState([{timestamp:""}]);
+    const [item, setItem] = useState({});
 
     const handleSubmit = (event) =>{
+        console.log(itemID);
         axios.get(`http://localhost:9090/api/measurement/${itemID}`)
-        .then(response => setItem(response.data[0]))
-        .itemch(error => console.log(error));
+        .then(response => setItem(response.data))
+        .catch(error => console.log(error));
         event.preventDefault();
     };
 

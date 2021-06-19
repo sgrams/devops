@@ -26,7 +26,7 @@ function checkOrInstantiateTable(){
     pgClient.query(`CREATE TABLE IF NOT EXISTS measurements (
             ID SERIAL PRIMARY KEY NOT NULL,
             timestamp TEXT NOT NULL,
-            temperature TEXT NOT NULL
+            measurement TEXT NOT NULL
         );`)
     .catch( (err) => {
         console.log(err);
@@ -34,15 +34,15 @@ function checkOrInstantiateTable(){
 };
 
 const createMeasurement = (request, response) => {
-    const { timestamp, temperature } = request.body
+    const { timestamp, measurement } = request.body
 
-    pgClient.query('INSERT INTO measurements (timestamp, temperature) VALUES ($1, $2) RETURNING id', [timestamp, temperature], (error, result) => {
+    pgClient.query('INSERT INTO measurements (timestamp, measurement) VALUES ($1, $2) RETURNING ID', [timestamp, measurement], (error, result) => {
       if (error) {
         throw error
       }
       var id = result.rows[0].id;
       response.status(201).send(`Measurement ${id} added`);
-      redisClient.hmset(id, 'timestamp', timestamp, 'temperature', temperature);
+      redisClient.hmset(id, 'timestamp', timestamp, 'measurement', measurement);
     });
 };
 
@@ -79,11 +79,11 @@ const getMeasurementById = (request, response) => {
 
 const updateMeasurementById = (request, response) => {
   const id = parseInt(request.params.id)
-  const { timestamp, temperature } = request.body
+  const { timestamp, measurement} = request.body
 
   pgClient.query(
-    'UPDATE measurements SET timestamp = $1, temperature = $2 WHERE id = $3',
-    [timestamp, temperature, id],
+    'UPDATE measurements SET timestamp = $1, measurement = $2 WHERE id = $3',
+    [timestamp, measurement, id],
     (error, results) => {
       if (error) {
         throw error;
